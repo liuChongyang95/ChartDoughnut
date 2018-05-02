@@ -21,6 +21,7 @@
 <p>数量</p><input type="text" id="FNumber">
 <script>
 
+	var index = 0;
 	var fNUM = Array("1", "2", "3", "4", "5", "7");
 
 
@@ -95,8 +96,10 @@
 
 	if (fNUM.length > 0) {
 		for (var i = 0; i < fNUM.length; i++) {
-			config.data.labels.push(fNUM[i] + config.data.labels.length);
 
+				// 标签名labels
+				config.data.labels.push(fNUM.indexOf(fNUM[i]));
+			
 			// 颜色名字
 			var colorName = colorNames[config.data.datasets[0].data.length % colorNames.length];
 			// 对应名字生成的颜色
@@ -107,26 +110,9 @@
 				dataset.backgroundColor.push(newColor);
 			});
 		}
-		;
+		window.myDoughnut.update();
 	}
 
-	document.getElementById('addData').addEventListener('click', function () {
-		if (config.data.datasets.length > 0) {
-			config.data.labels.push('data #' + config.data.labels.length);
-
-			// 颜色名字
-			var colorName = colorNames[config.data.datasets[0].data.length % colorNames.length];
-			// 对应名字生成的颜色
-			var newColor = window.chartColors[colorName];
-
-			config.data.datasets.forEach(function (dataset) {
-				dataset.data.push(FnumIns(1));
-				dataset.backgroundColor.push(newColor);
-			});
-
-			window.myDoughnut.update();
-		}
-	});
 	//
 	// document.getElementById('removeDataset').addEventListener('click', function () {
 	// 	config.data.datasets.splice(0, 1);
